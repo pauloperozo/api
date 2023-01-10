@@ -19,10 +19,6 @@ const Error_503 = (req, res, next) => {
     req.on('end', __ => {
 
         clearInterval( time )
-
-        try { guardar_auditoria(req,res) }  
-        catch (error) { console.log(error) }
-
     }) 
 
     next()

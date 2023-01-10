@@ -16,4 +16,11 @@ const app = express()
             app.use( router.name,require(router.path) )
       })
 
+      /*Cargamos Errores */
+      const { Error_503 } = require('./middleware/error_503')
+      app.use( Error_503 )
+
+      const { Error_404 } = require('./middleware/error_404')
+      app.use( Error_404 )
+
       module.exports = app

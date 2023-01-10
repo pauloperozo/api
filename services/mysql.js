@@ -2,14 +2,14 @@
 let MysqlConexion = undefined
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const Connection = ( config = {} ) => {
-
+    
     const { createConnection } = require('mysql')  
     return new Promise( resolve => {
 
             const connect = createConnection( config )
             connect.connect( err => { 
 
-            if( err ) resolve( { error : true, message:"Error -> No Se Pudo Conectar Con la Base De Datos"} ) 
+            if( err ) resolve( { error : true, message:err.sqlMessage} ) 
             else 
             {
                 const { createPool } = require('mysql')
@@ -42,7 +42,7 @@ const Query = (sql = "", obj = {} ) => {
                     connection.query( out, (error, results, fields) => {
                         
                         connection.release()
-                        if (error) resolve( { error : true, message : err.message } )          					
+                        if (error) resolve( { error : true, message : error.message } )          					
                         else resolve( results )
                     
                     })
